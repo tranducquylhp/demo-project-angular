@@ -1,0 +1,56 @@
+
+<br>
+<br>
+<br>
+<article class="col-lg-8">
+        <div class="panel panel-info ">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Offerings:</h3>
+                </div>
+                <div class="panel-body no-padding text-align-center">
+        
+    <sa-datatable [options]="dtOptions" paginationLength="true" tableClass="table table-striped table-bordered table-hover" width="100%"
+        *ngIf="!reRenderTable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+    </sa-datatable>
+                </div></div>
+
+</article>
+<div class="col-lg-4">
+
+    <div class="panel panel-success ">
+
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Selected Offerings</h3>
+        </div>
+        <div class="panel-body no-padding text-align-center">
+
+            <table class="table">
+                <tbody>
+                    <tr *ngFor="let offer of this.model.simpleProductOfferingIds">
+                        <td>
+                            {{getNameOfOffering(offer)}}
+                        </td>
+                        <td>
+                            <a (click)="removeOffering(offer)" class="btn btn-danger btn-sm">
+                                <i class="fa fa-minus"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

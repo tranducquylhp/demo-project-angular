@@ -1,0 +1,155 @@
+<div id="content">
+
+    <sa-widgets-grid>
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" color="vdf">
+
+                    <header>
+                        <h2>Characteristic Form </h2>
+                    </header>
+                    <div>
+                        <div class="widget-body">
+                            <form class="form-horizontal">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Name</label>
+                                            <div class="col-sm-3 col-md-9 col-lg-9">
+                                                <label class="radio radio-inline">
+                                                    <input type="radio" class="radiobox" [(ngModel)]="mySelection"
+                                                           value="OneTime" name="mode">
+                                                    <span>One-Time</span>
+                                                </label>
+                                                <label class="radio radio-inline">
+                                                    <input type="radio" class="radiobox" [(ngModel)]="mySelection"
+                                                           value="Recurring" name="mode">
+                                                    <span>Recurring</span>
+                                                </label>
+                                                <label class="radio radio-inline">
+                                                    <input type="radio" class="radiobox" [(ngModel)]="mySelection"
+                                                           value="Discount" name="mode">
+                                                    <span>Discount</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                        <fieldset>
+                                            <div class="form-group" *ngIf="mySelection == 'Recurring' || mySelection == 'Discount'">
+                                                <label class="col-sm-3 col-md-3 col-lg-3 control-label">Period Type</label>
+                                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                                    <select class="form-control" id="periodType" name="periodType"
+                                                            required>
+                                                        <option value="1">Daily</option>
+                                                        <option value="2">Weekly</option>
+                                                        <option value="3">Monthly</option>
+                                                        <option value="4">Yearly</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <div class="form-group" *ngIf="mySelection == 'Discount'">
+                                                <label class="col-sm-3 col-md-3 col-lg-3 control-label">Is Percentage?</label>
+                                                <div class="col-sm-1 col-md-1 col-lg-1 pull-left smart-form">
+                                                    <label class="toggle">
+                                                        <input type="checkbox" name="checkbox-toggle" [(ngModel)]="isPercentage" (change)="onChangeIsPercentage()" #priceTypeControl="ngModel">
+                                                        <i data-swchon-text="YES" data-swchoff-text="NO"></i></label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 col-md-3 col-lg-3 control-label">Amount</label>
+                                                <div class="col-sm-3 col-md-3 col-lg-3">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa {{priceCurrencyStyle}}"></i></span>
+                                                        <input id="amount" required type="text" class="form-control" name="amount"/>
+                                                        <span class="input-group-addon"><i class="fa {{isPercentageStyle}}"></i></span>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-1 col-md-1 col-lg-1 control-label">Currency</label>
+                                                    <div class="col-sm-2 col-md-2 col-lg-2">
+                                                        <select class="form-control" id="currency" name="currency"
+                                                                required [(ngModel)]="priceCurrency" (change)="onChangeCurrency($event)" #priceTypeControl="ngModel">
+                                                            <option value="1">TRY</option>
+                                                            <option value="2">USD</option>
+                                                            <option value="3">EUR</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <div class="form-group" *ngIf="mySelection == 'Discount'">
+                                                <label class="col-sm-3 col-md-3 col-lg-3 control-label">Charge Period</label>
+                                                <div class="col-sm-3 col-md-3 col-lg-3">
+                                                    <div class="input-group">
+                                                        <input class="form-control" id="validForStartDate"
+                                                               name="chargePeriodFrom" placeholder="From" type="date"
+                                                               required>
+                                                        <span class="input-group-addon"><i
+                                                                class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-3 col-md-3 col-lg-3">
+                                                    <div class="input-group">
+                                                        <input class="form-control" id="validForEndDate"
+                                                               name="chargePeriodTo" placeholder="To" type="date"
+                                                               required>
+                                                        <span class="input-group-addon"><i
+                                                                class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                </div>
+
+                                <legend>Price List
+                                </legend>
+
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Name</label>
+                                            <div class="col-sm-3 col-md-9 col-lg-9">
+                                                <label class="radio radio-inline">
+                                                    <input type="radio" class="radiobox" name="style-0a">
+                                                    <span>One-Time</span>
+                                                </label>
+                                                <label class="radio radio-inline">
+                                                    <input type="radio" class="radiobox" name="style-0a">
+                                                    <span>Recurring</span>
+                                                </label>
+                                                <label class="radio radio-inline">
+                                                    <input type="radio" class="radiobox" name="style-0a">
+                                                    <span>Discount</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </sa-widgets-grid>
+
+</div>
+
+
+
+

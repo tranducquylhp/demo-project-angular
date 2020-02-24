@@ -1,0 +1,129 @@
+<div id="content">
+
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['Characteristic', 'New Characteristic']" icon="pencil-square-o" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+  <sa-widgets-grid>
+    <div class="row">
+
+      <div class="col-sm-12">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="vdf">
+
+          <header>
+            <h2>Create Characteristic</h2>
+          </header>
+          <div>
+            <div class="widget-body">
+
+              <form (ngSubmit)="onSubmit()" #characteristicForm="ngForm" class="form-horizontal">
+                <fieldset>
+                  <div class="form-group" [class.has-error]="nameControl.invalid && nameControl.touched ">
+                    <label class="col-xs-2 col-lg-3 control-label"><strong>Name</strong></label>
+                    <div class="col-xs-9 col-lg-6 ">
+                      <input id="name" required type="text" class="form-control" name="name" [(ngModel)]="model.name" #nameControl="ngModel" />
+                      <small *ngIf="nameControl.invalid && nameControl.touched " class="help-block">Name is required</small>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <div class="form-group" [class.has-error]="descriptionControl.invalid && descriptionControl.touched ">
+                    <label class="col-xs-2 col-lg-3 control-label"><strong>Description</strong></label>
+                    <div class="col-xs-9 col-lg-6 ">
+                      <input id="description" required type="text" class="form-control" name="description" [(ngModel)]="model.description" #descriptionControl="ngModel"
+                      />
+                      <small *ngIf="descriptionControl.invalid && descriptionControl.touched " class="help-block">Description is required</small>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-sm-3 col-md-3 col-lg-3 control-label">Is Required?</label>
+                    <div class="col-sm-1 col-md-1 col-lg-1 pull-left smart-form">
+                      <label class="toggle">
+                        <input type="checkbox" name="checkbox-toggle-required-create" [(ngModel)]="model.isRequired">
+                        <i data-swchon-text="YES" data-swchoff-text="NO"></i></label>
+                    </div>
+
+                    <label class="col-sm-3 col-md-3 col-lg-3 control-label">Is Configurable?</label>
+                    <div class="col-sm-1 col-md-1 col-lg-1 pull-left smart-form">
+                      <label class="toggle">
+                        <input type="checkbox" name="checkbox-toggle-configurable-create" [(ngModel)]="model.isConfigurable">
+                        <i data-swchon-text="YES" data-swchoff-text="NO"></i></label>
+                    </div>
+                  </div>
+                </fieldset>
+                <!--<fieldset>
+                    <div class="form-group" [class.has-error]="validForStartDateControl.invalid && validForStartDateControl.submitted && validForEndDateControl.invalid && validForEndDateControl.submitted ">
+                      <label class="col-xs-2 col-lg-3 control-label">Valid For:</label>
+                      <div class=" col-xs-5 col-lg-3">
+                        <div class="input-group">
+                          <input class="form-control" id="validForStartDate" name="validForStartDate" placeholder="From" type="date" [(ngModel)]="model.validForStartDate"
+                                 #validForStartDateControl="ngModel" required>
+                          <span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                          </span>
+                        </div>
+                        <small *ngIf="validForStartDateControl.invalid && validForStartDateControl.submitted" class="help-block">Valid For Start Date is required</small>
+                      </div>
+  
+                      <div class=" col-xs-5 col-lg-3">
+                        <div class="input-group">
+                          <input class="form-control" id="validForEndDate" name="validForEndDate" placeholder="To" type="date" [(ngModel)]="model.validForEndDate"
+                             #validForEndDateControl="ngModel" required>
+                          <span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                          </span>
+                        </div>
+                        <small *ngIf="validForEndDateControl.invalid && validForEndDateControl.submitted" class="help-block">Valid For End Date is required</small>
+                      </div>
+                    </div>
+                  </fieldset>-->
+                <fieldset>
+                  <div class="form-group" [class.has-error]="valueTypeControl.invalid && valueTypeControl.submitted ">
+                    <label class="col-xs-2 col-lg-3 control-label">Value Type</label>
+                    <div class="col-xs-9 col-lg-6">
+                      <select class="form-control" id="valueType" name="valueType" required [(ngModel)]="model.valueType" (change)="onChange($event)" #valueTypeControl="ngModel">
+                        <option value="1">List</option>
+                        <option value="2">Integer</option>
+                        <option value="3">String</option>
+                        <option value="4">DateTime</option>
+                        <!-- <option *ngFor="let item of valueTypes" [value]="item"> {{item}}</option> -->
+                      </select>
+                      <small *ngIf="valueTypeControl.invalid && valueTypeControl.submitted " class="help-block">Value Type is required</small>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group" *ngIf="showCharacteristicField">
+                      <label class="col-lg-3 control-label"> Characteristic Values</label>
+                      <div class="col-lg-6">
+  
+                        <label>Type and enter to add characteristic value</label>
+                        <input id="charValueString" smartTags class="form-control tagsinput" name="charValueString">
+  
+                      </div>
+                    </div>
+                  </fieldset>
+                <div class="form-actions">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button class="btn btn-danger" routerLink="/characteristic/characteristic-list">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        Cancel
+                      </button>
+                      <button class="btn btn-success" type="submit">
+                        <i class="fa fa-save"></i>
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sa-widgets-grid>
+
+</div>

@@ -1,0 +1,154 @@
+<div id="content">
+    <div class="row">
+        <sa-big-breadcrumbs [items]="['Home']" icon="home" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+    </div>
+
+
+    <!-- <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <div sa-widget [editbutton]="false">
+          <header>
+            <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+            <h2>Bar Chart</h2>
+          </header>
+          <div>
+            <div class="widget-body">
+              <sa-chart-js type="bar" [data]="customDataSet"   ></sa-chart-js>
+            </div>
+          </div>
+        </div>
+    </article> -->
+
+
+    <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div sa-widget>
+            <header>
+                <span class="widget-icon">
+                    <i class="fa fa-bar-chart-o"></i>
+                </span>
+                <h2>Daily Offerings</h2>
+            </header>
+            <div class="widget-body" style="display: block">
+                <!-- <canvas baseChart [data]="dailyOfferingsChartData" [labels]="dailyOfferingsChartLabels" [options]="lineChartOptions" [chartType]="lineChartType"></canvas> -->
+                <!-- <canvas baseChart [datasets]="dailyOfferingsChartDataSets" [data]="dailyOfferingsChartData" [labels]="dailyOfferingsChartLabels"  [chartType]="lineChartType"></canvas> -->
+                <canvas baseChart [datasets]="dailyOfferingsChartDataSets" [labels]="dailyOfferingsChartLabels" ng-change="ngOnChanges" [options]="barChartOptions"
+                    [chartType]="lineChartType" [colors]="dailyOfferingsChartColors"></canvas>
+            </div>
+        </div>
+    </article>
+    <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div sa-widget>
+            <header>
+                <span class="widget-icon">
+                    <i class="fa fa-bar-chart-o"></i>
+                </span>
+                <h2>Offerings of Sale Channels</h2>
+            </header>
+            <div>
+                <div style="display: block">
+                    <canvas #OfferingsOfSaleChannels width="100%" baseChart [datasets]="offeringsOfSaleChannelsChartDataSet" [labels]="offeringsOfSaleChannelsLabels"
+                        [options]="barChartOptions" [legend]="barChartLegend" [colors]="newBarChartColors" [chartType]="barChartType"
+                        (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </article>
+    <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div sa-widget>
+            <header>
+                <span class="widget-icon">
+                    <i class="fa fa-bar-chart-o"></i>
+                </span>
+                <h2>Offerings Status</h2>
+            </header>
+            <div class="widget-body" style="display: block">
+                <!-- <sa-chart-js type="doughnut" [dataset]="datasetsOfferings"></sa-chart-js> -->
+                <!-- <canvas class="chart chart-doughnut" chart-data="dataOfferings" chart-labels="labelsOfferings"
+                   chart-dataset="datasetsOfferings"></canvas>  -->
+                <!-- chart-colors="colors" -->
+                <!-- <canvas baseChart [labels]="labelsOfferings" [datasets]="datasetsOfferings" [colors]="colorsUndefined" [chartType]="typeOfferings">
+                </canvas>    (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"-->
+                <canvas baseChart [datasets]="offeringsStatusDatasets" [labels]="offeringsStatusLabels" [chartType]="doughnutChartType" [colors]="newPieChartColors">
+                </canvas>
+            </div>
+        </div>
+    </article>
+    <article class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+        <div sa-widget>
+            <header>
+                <span class="widget-icon">
+                    <i class="fa fa-bar-chart-o"></i>
+                </span>
+                <h2>Offering Catagories</h2>
+            </header>
+            <div class="widget-body" style="display: block">
+                <canvas baseChart [datasets]="offeringOfCategoriesChartDataSet" [labels]="offeringOfCategoriesLabels" [options]="barChartOptions"
+                    [legend]="barChartLegend" [colors]="newBarChartColors" [chartType]="barChartType">
+                </canvas>
+            </div>
+            <!-- <button (click)="randomize()">Update</button> -->
+        </div>
+    </article>
+    <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div sa-widget>
+            <header>
+                <span class="widget-icon">
+                    <i class="fa fa-bar-chart-o"></i>
+                </span>
+                <h2>Segments</h2>
+            </header>
+            <div class="widget-body" style="display: block">
+                <!-- <canvas  baseChart [labels]="labelsOfferingsSegment" [datasets]="datasetsOfferingsSegment" [colors]="colorsUndefined" [chartType]="doughnutChartType"> -->
+                <canvas #Segments baseChart [labels]="offeringsSegmentLabels" [data]="offeringsSegmentData" [colors]="newPieChartColors"
+                    [chartType]="doughnutChartType">
+                </canvas>
+            </div>
+        </div>
+    </article>
+    <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div sa-widget>
+            <header>
+                <span class="widget-icon">
+                    <i class="fa fa-bar-chart-o"></i>
+                </span>
+                <h2>Parent Categories</h2>
+            </header>
+            <div class="widget-body" style="display: block">
+                <!-- <sa-chart-js type="doughnut" [dataset]="datasetsOfferings"></sa-chart-js> -->
+                <!-- <canvas class="chart chart-doughnut" chart-data="dataOfferings" chart-labels="labelsOfferings"
+                   chart-dataset="datasetsOfferings"></canvas>  -->
+                <!-- chart-colors="colors" -->
+                <!-- <canvas baseChart [labels]="labelsOfferings" [datasets]="datasetsOfferings" [colors]="colorsUndefined" [chartType]="typeOfferings">
+                </canvas>    (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"-->
+                <canvas baseChart [datasets]="offeringsCountOfCategoriesDatasets" [labels]="offeringsCountOfCategoriesLabels" [chartType]="doughnutChartType" [colors]="morrisDonutChartColors">
+                </canvas>
+            </div>
+        </div>
+    </article>
+
+
+    <!-- <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div sa-widget editbutton={false}>
+            <header>
+                <span class="widget-icon">
+                    <i class="fa fa-bar-chart-o"></i>
+                </span>
+                <h2>Parent Categories</h2>
+            </header>
+            <div>
+                <div class="widget-body no-padding">
+                    <sa-morris-graph #OfferingsOfParent  [data]="donutdemo"  labels="donutLabels" type="donut" [options]="{formater: percentageFormat, colors:morrisDonutChartColors}">
+                    </sa-morris-graph>
+                </div>
+            </div>
+        </div>
+    </article> -->
+
+    <div>
+        <br/>
+        <br/>
+    </div>
+
+</div>

@@ -1,0 +1,420 @@
+<div id="content">
+    <div class="row">
+        <sa-big-breadcrumbs [items]="['Offering', 'Edit']" icon="table"
+                            class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+
+    </div>
+
+    <div sa-widget [editbutton]="false" [deletebutton]="false">
+        <header>
+            <h2 *ngIf="model.name">{{model.name}}</h2>
+            <h2 *ngIf="!model.name">New Offering</h2>
+        </header>
+
+        <!-- widget div-->
+        <div>
+
+            <!-- widget content -->
+            <div class="widget-body fuelux">
+                <fuel-ux-wizard (complete)="onWizardComplete($event)" id="offeringWizard">
+                    <div class="wizard">
+                        <div class="steps-container">
+                            <ul class="steps">
+                                <li data-step="1" class="active">
+                                    <span class="badge badge-info">1</span>Basic Info<span class="chevron"></span>
+                                </li>
+                                <li data-step="2">
+                                    <span class="badge">2</span>Spesification<span class="chevron"></span>
+                                </li>
+                                <li data-step="3">
+                                    <span class="badge">3</span>Price<span class="chevron"></span>
+                                </li>
+                                <li data-step="4">
+                                    <span class="badge">4</span>Details<span class="chevron"></span>
+                                </li>
+                                <li data-step="5">
+                                    <span class="badge">5</span>Documents<span class="chevron"></span>
+                                </li>
+                                <li data-step="6">
+                                    <span class="badge">6</span>Save<span class="chevron"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="actions">
+                            <button type="button" class="btn btn-sm btn-primary btn-prev">
+                                <i class="fa fa-arrow-left"></i>Prev
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success btn-next" data-last="Finish">
+                                Next<i class="fa fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <form (ngSubmit)="onSubmit()" class="form-horizontal">
+
+                            <div class="step-pane active" data-step="1">
+
+
+                                <br>
+                                <br>
+                                <br>
+
+                                <div class="col-md-9 col-md-offset-1">
+                                    <div class="row">
+
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label"><strong>Offering Name</strong></label>
+                                            <div class="col-md-4"  [class.has-error]="(offeringNameControl.invalid && offeringNameControl.touched) || (offeringNameControl.invalid && shouldValidateFields)">
+                                                <input
+                                                        class="form-control"
+                                                        name="offeringName"
+                                                        required
+                                                        type="text"
+                                                        [(ngModel)]="model.name"
+                                                        #offeringNameControl="ngModel"
+                                                >
+                                                <small *ngIf="(offeringNameControl.invalid && offeringNameControl.touched) || (offeringNameControl.invalid && shouldValidateFields)"
+                                                       class="help-block">Offering name is required
+                                                </small>
+                                            </div>
+                                            <label class="col-md-2 control-label"><strong>Description</strong></label>
+                                            <div class="col-md-4" [class.has-error]="(offeringDescControl.invalid && offeringDescControl.touched) || (offeringDescControl.invalid && shouldValidateFields)">
+                                                <input class="form-control"
+                                                       type="text"
+                                                       required
+                                                       name="offeringDescription"
+                                                       [(ngModel)]="model.description"
+                                                       #offeringDescControl="ngModel"
+                                                >
+                                                <small *ngIf="(offeringDescControl.invalid && offeringDescControl.touched) || (offeringDescControl.invalid && shouldValidateFields)"
+                                                       class="help-block">Offering description is required
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+
+                                            <label class="col-md-2 control-label"><strong>Term (Month)</strong></label>
+                                            <div class="col-md-4" [class.has-error]="((!model.term || model.term == 0) && termSelected) || ((!model.term || model.term == 0) && shouldValidateFields)">
+                                                <select select2
+                                                        required
+                                                        class="col-md-5 select-2"
+                                                        style="width:100%"
+                                                        id="termSelect"
+                                                        name="termSelect"
+                                                        data-select-search="true"
+                                                        [(ngModel)]="model.term"
+                                                        #offeringTermControl="ngModel">
+                                                    <option [value]="0" [selected]="true">Please Select</option>
+                                                    <option *ngFor="let term of termValues" [value]="term.value">
+                                                        {{term.value}}
+                                                    </option>
+                                                </select>
+                                                <small *ngIf="((!model.term || model.term == 0) && termSelected) || ((!model.term || model.term == 0) && shouldValidateFields)"
+                                                       class="help-block">Term is required
+                                                </small>
+                                            </div>
+
+                                            <label class="col-md-2 control-label"><strong>Sellable?</strong></label>
+                                            <div class="col-md-4">
+                                                <div class="smart-form col-md-1">
+                                                    <label class="toggle">
+                                                        <input type="checkbox" [(ngModel)]="model.isSellable"
+                                                               name="checkbox-toggle" checked="checked">
+                                                        <i data-swchon-text="YES" data-swchoff-text="NO"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+
+
+                            </div>
+
+                            <div class="step-pane" data-step="2">
+
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3"><strong>Spesification</strong></label>
+
+                                            <div class="col-md-7" [class.has-error]="((!model.productSpecificationId || model.productSpecificationId == 0) && specSelected)
+                                                || ((!model.productSpecificationId || model.productSpecificationId == 0) && shouldValidateFields)">
+                                                <select [disabled]="!isNewOffering" select2 style="width:100%"
+                                                        data-select-search="true"
+                                                        id="specSelect"
+                                                        name="specSelect">
+                                                    <option [value]="0">Please Select</option>
+                                                    <option *ngFor="let spec of spesifications" [value]="spec.id">
+                                                        {{spec.name}}
+                                                    </option>
+                                                </select>
+                                                <small *ngIf="((!model.productSpecificationId || model.productSpecificationId == 0) && specSelected)
+                                                || ((!model.productSpecificationId || model.productSpecificationId == 0) && shouldValidateFields)"
+                                                       class="help-block">Spesification is required
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <legend *ngIf="charValueUseList.length > 0"></legend>
+
+
+                                    <div *ngFor="let charValue of charValueUseList; let i = index;">
+
+                                        <div class="row" *ngIf="charValue.prodSpecCharType == 1">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    <strong *ngIf="charValue.required">
+                                                        {{charValue.prodSpecCharDescription}}
+                                                    </strong>
+                                                    <p *ngIf="!charValue.required">
+                                                        {{charValue.prodSpecCharDescription}}
+                                                    </p>
+                                                </label>
+                                                <div class="col-md-7" [class.has-error]="emptyCharValueTextList[i]===true">
+                                                    <select select2
+                                                            id="charValueUseSelect{{i}}"
+                                                            (change)="onChange($event)"
+                                                            style="width:100%" data-select-search="true">
+                                                        <option [value]="0">Please Select</option>
+                                                        <option *ngFor="let charValueUse of charValue.prodSpecCharValueList"
+                                                                [value]="charValueUse.prodSpecCharValueUseId"
+                                                                [selected]="charValueUse.isSelected">
+                                                            {{charValueUse.prodSpecCharValue}}
+                                                        </option>
+                                                    </select>
+                                                    <small *ngIf="emptyCharValueTextList[i]===true"
+                                                           class="help-block">Characteristic value is required
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" *ngIf="charValue.prodSpecCharType != 1">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    <strong *ngIf="charValue.required">
+                                                        {{charValue.prodSpecCharDescription}}
+                                                    </strong>
+                                                    <p *ngIf="!charValue.required">
+                                                        {{charValue.prodSpecCharDescription}}
+                                                    </p>
+                                                </label>
+                                                <div class="col-md-7" [class.has-error]="emptyCharValueTextList[i]===true">
+                                                    <input class="form-control"
+                                                           id="charValueUseInput{{i}}"
+                                                           placeholder="Please type the value"
+                                                           (change)="getCharValues();"
+                                                           type="text"
+                                                           [value]="charValue.prodSpecCharValue ? charValue.prodSpecCharValue : null"
+                                                    >
+                                                    <small *ngIf="emptyCharValueTextList[i]===true"
+                                                           class="help-block">Characteristic value is required
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div *ngIf="i == (charValueUseList.length - 1)">
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+
+
+                            </div>
+
+                            <div class="step-pane" data-step="3">
+
+                                <br>
+                                <br>
+                                <app-price></app-price>
+
+                            </div>
+
+                            <div class="step-pane" data-step="4">
+
+                                <br>
+                                <br>
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2"><strong>Catalog</strong></label>
+
+                                            <div class="col-md-8" [class.has-error]="(!model.catalogId || model.catalogId == 0) && (catalogSelected || shouldValidateFields)">
+                                                <select select2 style="width:100%" data-select-search="true"
+                                                        id="catalogSelect"
+                                                        name="catalogSelect"
+                                                        required [(ngModel)]="model.catalogId"
+                                                        #selectCatalogControl="ngModel">
+                                                    <option [value]="0">Please Select</option>
+                                                    <option *ngFor="let catalog of catalogs" [value]="catalog.id">
+                                                        {{catalog.name}}
+                                                    </option>
+                                                </select>
+                                                <small *ngIf="(!model.catalogId || model.catalogId == 0) && (catalogSelected || shouldValidateFields)"
+                                                       class="help-block">Catalog is required
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2"><strong>Category</strong></label>
+
+                                            <div class="col-md-8" [class.has-error]="(!model.categoryId || model.categoryId == 0) && (categorySelected || shouldValidateFields)">
+                                                <select select2 style="width:100%" data-select-search="true"
+                                                        id="categorySelect"
+                                                        name="categorySelect"
+                                                        required [(ngModel)]="model.categoryId"
+                                                        #selectCategoryControl="ngModel">
+                                                    <option [value]="0">Please Select</option>
+                                                    <option *ngFor="let category of categoryLeaves"
+                                                            [value]="category.id">
+                                                        {{category.name}}
+                                                    </option>
+                                                </select>
+                                                <small *ngIf="(!model.categoryId || model.categoryId == 0) && (categorySelected || shouldValidateFields)"
+                                                       class="help-block">Category is required
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2"><strong>Segment</strong></label>
+
+                                            <div class="col-md-8" [class.has-error]="model.segments.length === 0 && (segmentSelected || shouldValidateFields)">
+                                                <select select2 multiple
+                                                        id="segmentSelect"
+                                                        name="segmentSelect"
+                                                        style="width:100%"
+                                                        class="select2">
+                                                    <option *ngFor="let segment of segmentList" [value]="segment.id">
+                                                        {{segment.name}}
+                                                    </option>
+                                                </select>
+                                                <small *ngIf="model.segments.length === 0 && (segmentSelected || shouldValidateFields)"
+                                                       class="help-block">At least 1 segment is required
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2"><strong>Sales Channel</strong></label>
+
+                                            <div class="col-md-8" [class.has-error]="model.salesChannels.length === 0 && ( salesChannelSelected ||  shouldValidateFields)">
+                                                <select select2 multiple
+                                                        id="salesChannelSelect"
+                                                        name="salesChannelSelect"
+                                                        style="width:100%"
+                                                        class="select2">
+                                                    <option *ngFor="let salesChannel of salesChannelList"
+                                                            [value]="salesChannel.id">
+                                                        {{salesChannel.name}}
+                                                    </option>
+                                                </select>
+                                                <small *ngIf="model.salesChannels.length === 0 && ( salesChannelSelected ||  shouldValidateFields)"
+                                                       class="help-block">At least 1 sales channel is required
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <div class="step-pane" data-step="5">
+
+                                <br>
+                                <br>
+
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2"><strong>Documents</strong></label>
+                                            <div class="col-md-8" [class.has-error]="model.documents.length === 0 && (documentSelected || shouldValidateFields)">
+                                                <select select2 multiple
+                                                        id="documentSelect"
+                                                        name="documentSelect"
+                                                        style="width:100%"
+                                                        class="select2">
+                                                    <option *ngFor="let document of documentList" [value]="document.id">
+                                                        {{document.name}}
+                                                    </option>
+                                                </select>
+                                                <small *ngIf="model.documents.length === 0 && (documentSelected || shouldValidateFields)"
+                                                       class="help-block">At least 1 document is required
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                            </div>
+
+                            <div class="step-pane" data-step="6">
+                                <h3><strong>Step 6 </strong> -Save</h3>
+                                <br>
+                                <br>
+
+                                <h1 class="text-center text-success"><i class="fa fa-check"></i> Offering is ready to be
+                                    saved!
+                                    <br>
+                                    <small>Please click finish to end wizard</small>
+                                </h1>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                            </div>
+
+                        </form>
+                    </div>
+                </fuel-ux-wizard>
+            </div>
+            <!-- end widget content -->
+
+        </div>
+        <!-- end widget div -->
+
+    </div>
+
+</div>

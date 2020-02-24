@@ -1,0 +1,259 @@
+<div class="row">
+    <form class="form-horizontal">
+
+        <fieldset>
+            <div class="form-group col-sm-12 col-md-12 col-lg-12" disabled="true">
+                <label class="col-sm-3 col-md-3 col-lg-3 control-label">Price Type</label>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <label class="radio radio-inline">
+                        <input type="radio" class="radiobox" [checked]="priceInput.priceType == 'OneTime'"
+                               (click)="cleanFields('OneTime')" [disabled]="!screenStatus"
+                               value="OneTime" name="mode">
+                        <span>One-Time</span>
+                    </label>
+                    <label class="radio radio-inline">
+                        <input type="radio" class="radiobox"
+                               (click)="cleanFields('Recurring')" [disabled]="!screenStatus"
+                               [checked]="priceInput.priceType == 'Recurring'"
+                               value="Recurring" name="mode">
+                        <span>Recurring</span>
+                    </label>
+                    <label class="radio radio-inline">
+                        <input type="radio" class="radiobox"
+                               (click)="cleanFields('Discount')" [disabled]="!screenStatus"
+                               [checked]="priceInput.priceType == 'Discount'"
+                               value="Discount" name="mode">
+                        <span>Discount</span>
+                    </label>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div class="form-group col-sm-12 col-md-12 col-lg-12"
+                 *ngIf="priceInput.priceType == 'Recurring' || priceInput.priceType == 'Discount'">
+                <label class="col-sm-3 col-md-3 col-lg-3 control-label">Period Type</label>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <select class="form-control" id="periodType" name="periodType"
+                            [(ngModel)]="priceInput.periodType"
+                            required>
+                        <option value="Daily">Daily</option>
+                        <option value="Weekly">Weekly</option>
+                        <option value="Monthly">Monthly</option>
+                        <option value="Yearly">Yearly</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div class="form-group col-sm-12 col-md-12 col-lg-12" *ngIf="priceInput.priceType == 'Discount'">
+                <label class="col-sm-3 col-md-3 col-lg-3 control-label">Is
+                    Percentage?</label>
+                <div class="col-sm-6 col-md-6 col-lg-6 smart-form">
+                    <label class="toggle pull-left">
+                        <input type="checkbox" name="checkbox-toggle"
+                               [(ngModel)]="priceInput.isPercentage"
+                               (change)="onChangeIsPercentage()"
+                               #priceTypeControl="ngModel">
+                        <i data-swchon-text="YES" data-swchoff-text="NO"></i></label>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                <label class="col-sm-3 col-md-3 col-lg-3 control-label">Amount</label>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <div class="input-group">
+                                                    <span class="input-group-addon"><i
+                                                            class="fa {{priceCurrencyStyle}}"></i></span>
+                        <input id="amount" required type="text" class="form-control"
+                               name="amount" [(ngModel)]="priceInput.amount"/>
+                        <span class="input-group-addon"><i
+                                class="fa {{isPercentageStyle}}"></i></span>
+                    </div>
+
+                </div>
+                <label class="col-sm-1 col-md-1 col-lg-1 control-label">Currency</label>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <select class="form-control" id="currency" name="currency"
+                            [(ngModel)]="priceInput.currency"
+                            required (change)="onChangeCurrency($event)"
+                            #priceTypeControl="ngModel">
+                        <option value="TRY">TRY</option>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div class="form-group col-sm-12 col-md-12 col-lg-12" *ngIf="priceInput.priceType == 'Discount'">
+                <label class="col-sm-3 col-md-3 col-lg-3 control-label">Charge
+                    Period</label>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <div class="input-group">
+                        <input id="chargePeriodFrom" placeholder="From" required type="text"
+                               [(ngModel)]="priceInput.chargePeriodFrom"
+                               class="form-control" name="chargePeriodFrom"/>
+                        <span class="input-group-addon"
+                              title="Start of charge discount period"><i
+                                class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <div class="input-group">
+                        <input id="chargePeriodTo" placeholder="To" required type="text"
+                               [(ngModel)]="priceInput.chargePeriodTo" class="form-control"
+                               name="chargePeriodTo"/>
+                        <span class="input-group-addon"
+                              title="End of charge discount period"><i
+                                class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                <div class="col-md-9 col-lg-9 col-sm-9">
+                    <div class="pull-right">
+                        <button class="btn btn-info btn-md header-btn  "
+                                *ngIf="screenStatus" (click)="addPrice()">
+                            <span class="glyphicon glyphicon-plus"></span> Add
+                        </button>
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn btn-danger btn-md header-btn  "
+                                *ngIf="!screenStatus" (click)="onCancelUpdate()">
+                            <span class="glyphicon glyphicon-plus"></span> Cancel
+                        </button>
+                        <button class="btn btn-success btn-md header-btn  "
+                                *ngIf="!screenStatus" (click)="updatePrice(priceInput)">
+                            <span class="glyphicon glyphicon-plus"></span> Update
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<legend>Price List</legend>
+
+<sa-widgets-grid>
+    <div class="row">
+        <article class="col-sm-12">
+            <div>
+                <div class="widget-body table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <!-- <th>
+                                 <i class="fa fa-fw fa-key text-muted hidden-md hidden-sm hidden-xs"></i>
+                                 ID
+                             </th>-->
+                            <th>
+                                <i class="fa fa-fw fa-tags text-muted hidden-md hidden-sm hidden-xs"></i>
+                                Price Type
+                            </th>
+                            <th>
+                                <i class="fa fa-fw fa-line-chart text-muted hidden-md hidden-sm hidden-xs"></i>
+                                Period Type
+                            </th>
+                            <th>
+                                <i class="fa fa-fw fa-percent text-muted hidden-md hidden-sm hidden-xs"></i>
+                                Is Percentage
+                            </th>
+                            <th>
+                                <i class="fa fa-fw fa-money text-muted hidden-md hidden-sm hidden-xs"></i>
+                                Amount
+                            </th>
+                            <th>
+                                <i class="fa fa-fw fa-exchange text-muted hidden-md hidden-sm hidden-xs"></i>
+                                Currency
+                            </th>
+                            <th>
+                                <i class="fa fa-fw fa-calendar-o text-muted hidden-md hidden-sm hidden-xs"></i>
+                                Charge Period From
+                            </th>
+                            <th>
+                                <i class="fa fa-fw fa-calendar-o text-muted hidden-md hidden-sm hidden-xs"></i>
+                                Charge Period To
+                            </th>
+                            <th data-orderable="false">
+
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of priceList">
+                            <!--<th>
+                                {{item.id}}
+                            </th>-->
+                            <th>
+                                {{item.priceType}}
+                            </th>
+                            <th>
+                                {{item.periodType}}
+                            </th>
+                            <th>
+                                <div *ngIf="item.priceType == 'Discount'">
+                                    <span class="fa fa-fw fa-check" *ngIf="item.isPercentage === true"></span>
+                                    <span class="fa fa-fw fa-times" *ngIf="item.isPercentage === false"></span>
+                                </div>
+
+                            </th>
+                            <th>
+                                {{item.amount}}
+                            </th>
+                            <th>
+                                {{item.currency}}
+                            </th>
+                            <th>
+                                <div *ngIf="item.priceType == 'Discount'">
+                                    {{item.chargePeriodFrom}}
+                                </div>
+                            </th>
+                            <th>
+                                <div *ngIf="item.priceType == 'Discount'">
+                                    {{item.chargePeriodTo}}
+                                </div>
+                            </th>
+                            <th data-orderable="false">
+                                <div class='btn-group dropdown show pull-right'>
+                                    <button class='btn btn-info btn-sm dropdown-toggle'
+                                            data-toggle='dropdown' aria-haspopup='true'
+                                            aria-expanded='false'>
+                                        <i class='fa fa-gear fa-lg'></i></button>
+                                    <ul class='dropdown-menu  ng-star-inserted'>
+                                        <li>
+                                            <a class='sa-datatables-edit-price'
+                                               (click)="onEditPrice(item)">
+                                                <i class="fa fa-fw fa-edit text-muted hidden-md hidden-sm hidden-xs"
+                                                   style="color:cornflowerblue"></i>
+                                                Edit
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class='sa-datatables-delete-price'
+                                               (click)="onDeletePrice(item)">
+                                                <i class="fa fa-fw fa-ban text-muted hidden-md hidden-sm hidden-xs"
+                                                   style="color:red"></i>
+                                                Delete
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </article>
+    </div>
+</sa-widgets-grid>

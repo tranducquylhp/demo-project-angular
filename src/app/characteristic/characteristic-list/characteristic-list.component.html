@@ -1,0 +1,91 @@
+<div id="content">
+    <div class="row">
+        <sa-big-breadcrumbs [items]="['Characteristic', 'List']" icon="table"
+                            class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+
+
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+            <a routerLink="/characteristic/characteristic-create">
+                <button type="button" class="btn btn-info btn-lg pull-right header-btn  ">
+                    <span class="glyphicon glyphicon-plus"></span> New
+                </button>
+            </a>
+
+        </div>
+    </div>
+
+    <sa-widgets-grid>
+
+
+        <div class="row">
+            <article class="col-sm-12">
+
+
+                <div sa-widget [editbutton]="false" [deletebutton]="false" color="vdf">
+                    <header>
+            <span class="widget-icon">
+              <i class="fa fa-table"></i>
+            </span>
+                        <h2>Characteristic List</h2>
+                    </header>
+                    <div>
+                        <div class="widget-body no-padding">
+
+                            <sa-datatable [options]="options" paginationLength="true"
+                                          tableClass="table table-striped table-bordered table-hover" width="100%"
+                                          *ngIf="!reRenderTable">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <i class="fa fa-fw fa-key text-muted hidden-md hidden-sm hidden-xs"></i>
+                                        ID
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i>
+                                        Name
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-fw fa-pencil text-muted hidden-md hidden-sm hidden-xs"></i>
+                                        Description
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-fw fa-calendar-o text-muted hidden-md hidden-sm hidden-xs"></i>
+                                        Validity Start Date
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-fw fa-calendar-o text-muted hidden-md hidden-sm hidden-xs"></i>
+                                        Validity End Date
+                                    </th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <!-- <thead class="thead-inverse">
+                                  <tr>
+                                      <th class="text-center">User ID</th>
+                                      <th class="text-center">ID</th>
+                                      <th class="text-center">Title</th>
+                                      <th class="text-center">Body</th>
+                                  </tr>
+                                  </thead> -->
+                                <!-- <tbody>
+                                <tr *ngFor="let post of _characteristics">
+                                    <td class="text-center" style="width: 15px;">{{post.userId}}</td>
+                                    <td class="text-center" style="width: 15px;">{{post.id}}</td>
+                                    <td class="text-center" style="width: 200px;">{{post.title}}</td>
+                                    <td class="text-center">{{post.body}}</td>
+                                </tr>
+                                </tbody> -->
+                            </sa-datatable>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+
+        </div>
+
+    </sa-widgets-grid>
+
+</div>

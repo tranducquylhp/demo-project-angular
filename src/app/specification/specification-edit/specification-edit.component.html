@@ -1,0 +1,127 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['Specification', 'Edit Specification']" icon="pencil-square-o" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+  <sa-widgets-grid>
+    <div class="row">
+      <div class="col-sm-12">
+        <div sa-widget [editbutton]="false" [colorbutton]="false" [deletebutton]="false">
+          <header>
+            <h2>Create Product Specification</h2>
+          </header>
+          <div>
+            <div class="widget-body">
+              <form #characteristicForm="ngForm" class="form-horizontal">
+                <fieldset>
+                  <div class="form-group" [class.has-error]="nameControl.invalid && nameControl.touched ">
+                    <label class="col-xs-2 col-lg-3 control-label">Name</label>
+                    <div class="col-xs-9 col-lg-6 ">
+                      <input required type="text" class="form-control" name="name" [(ngModel)]="productSpec.name" #nameControl="ngModel" />
+                      <small *ngIf="nameControl.invalid && nameControl.touched " class="help-block">Name is required</small>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <div class="form-group" [class.has-error]="codeControl.invalid && codeControl.touched ">
+                    <label class="col-xs-2 col-lg-3 control-label">Code</label>
+                    <div class="col-xs-9 col-lg-6 ">
+                      <input id="code" required type="text" class="form-control" [(ngModel)]="productSpec.code" #codeControl="ngModel" name="code"
+                      />
+                      <small *ngIf="codeControl.invalid && codeControl.touched " class="help-block">Code is required</small>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <div class="form-group" [class.has-error]="descriptionControl.invalid && descriptionControl.touched ">
+                    <label class="col-xs-2 col-lg-3 control-label">Description</label>
+                    <div class="col-xs-9 col-lg-6 ">
+                      <input id="description" type="text" class="form-control" [(ngModel)]="productSpec.description" #descriptionControl="ngModel"
+                        name="description" />
+                      <small *ngIf="descriptionControl.invalid && descriptionControl.touched " class="help-block">Description is required</small>
+                    </div>
+                  </div>
+                </fieldset>
+
+
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-xs-2 col-lg-3 control-label">Characteristics</label>
+                    <div class="col-xs-9 col-lg-6 ">
+                      <select id="chars" class="form-control" name="chars" (change)="selectCharUse($event)">
+                        <option value="">Choose</option>
+                        <option *ngFor="let characteristic of filterNonSelectedChars(characteristics)" value="{{characteristic.id}}">{{characteristic.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </fieldset>
+
+
+                <fieldset>
+
+                  <div *ngFor="let characteristic of characteristics ; index as i">
+                    <legend *ngIf="characteristic.isSelected"></legend>
+                    <div class="form-group" *ngIf="characteristic.isSelected">
+                      <label class="col-xs-2 col-lg-3 control-label">Selected Characteristic</label>
+                      <label class="col-xs-9 col-lg-6">
+                        <b> {{characteristic.name}}</b>
+                      </label>
+                      <button class="btn btn-danger" (click)="removeCharUse(i)">
+                        <i class="glyphicon glyphicon-minus"></i>
+                      </button>
+                    </div>
+
+                    <div class="form-group" *ngIf="characteristic.isSelected&& characteristic.valueType==1">
+                      <label class="col-xs-2 col-lg-3 control-label">{{characteristic.name}} Values</label>
+                      <div class="col-xs-9 col-lg-6">
+                        <label class="checkbox-inline" *ngFor="let charValue of characteristic.values ">
+
+                          <input class="checkbox" [checked]="charValue.isSelected" type="checkbox" class="item" value="{{charValue.id}}" (change)="check(characteristic, charValue, $event)"
+                          /> {{charValue.name}}
+                        </label>
+
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+                </fieldset>
+
+                <fieldset>
+                  <div *ngFor="let charuse of productSpec.productSpecCharUses">
+
+                  </div>
+                </fieldset>
+
+
+
+                <div class="form-actions">
+                  <div class="row">
+                    <div class="col-md-12">
+
+                      <button class="btn btn-danger" routerLink="/specification/list">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        Cancel
+                      </button>
+
+                      <button class="btn btn-success" [disabled]="!characteristicForm.valid" (click)="saveForm()">
+                        <i class="fa fa-save"></i>
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sa-widgets-grid>
+</div>

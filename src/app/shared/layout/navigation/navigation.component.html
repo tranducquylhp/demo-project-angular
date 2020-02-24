@@ -1,0 +1,76 @@
+<aside id="left-panel">
+
+  <!-- User info -->
+  <sa-login-info></sa-login-info>
+  <!-- end user info -->
+
+  <nav>
+    <!-- NOTE: Notice the gaps after each icon usage <i></i>..
+    Please note that these links work a bit different than
+    traditional href="" links. See documentation for details.
+    -->
+
+    <ul saSmartMenu>
+
+      <li routerLinkActive="active">
+        <a routerLink="/home" title="Home">
+          <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">{{'Home' | i18n}}</span></a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/offering/offering-list" title="Offering">
+          <i class="fa fa-lg fa-fw fa-pencil-square"></i> <span class="menu-item-parent">{{'Offering' | i18n}}</span></a>
+      </li> 
+      <li routerLinkActive="active">
+        <a routerLink="/specification/list" title="Specification">
+          <i class="fa fa-lg fa-fw fa-share-alt-square"></i> <span class="menu-item-parent">{{'Specification' | i18n}}</span></a>
+      </li>  
+      <li routeLinkActive="active">
+        <a routerLink="/characteristic/characteristic-list" title="Characteristic">
+          <i class="fa fa-lg fa-fw fa-puzzle-piece"></i> <span class="menu-item-parent">{{'Characteristic' | i18n}}</span></a>
+      </li>     
+      <li routerLinkActive="active">
+        <a routerLink="/catalog/catalog-list" title="Catalog">
+          <i class="fa fa-lg fa-fw fa-ge"></i> <span class="menu-item-parent">{{'Catalog' | i18n}}</span></a>
+      </li>          
+      <li routerLinkActive="active">
+        <a routerLink="/segment" title="Segment">
+          <i class="fa fa-lg fa-fw fa-jsfiddle"></i> <span class="menu-item-parent">{{'Segment' | i18n}}</span></a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/category" title="Category">
+          <i class="fa fa-lg fa-fw fa-cubes"></i> <span class="menu-item-parent">{{'Category' | i18n}}</span></a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/sales-channel" title="Sales Channel">
+          <i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">{{'Sales Channel' | i18n}}</span></a>
+      </li>  
+      <li routerLinkActive="active">
+        <a routerLink="/document" title="Document">
+          <i class="fa fa-lg fa-fw fa-file-archive-o"></i> <span class="menu-item-parent">{{'Document' | i18n}}</span></a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/bundle/bundle-list" title="Bundle">
+          <i class="fa fa-lg fa-fw fa-pencil-square"></i> <span class="menu-item-parent">{{'Bundle' | i18n}}</span></a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/student/list" title="Students">
+          <i class="fa fa-lg fa-fw fa-pencil-square"></i> <span class="menu-item-parent">{{'Students' | i18n}}</span></a>
+      </li>
+      <!--      <li routerLinkActive="active">
+              <a routerLink="/add-on" title="Add-on">
+                <i class="fa fa-lg fa-fw fa-deviantart"></i> <span class="menu-item-parent">{{'Add-on' | i18n}}</span></a>
+            </li>-->
+<!--      <li routerLinkActive="active">
+        <a routerLink="/test" title="Test">
+          <i class="fa fa-lg fa-fw fa-twitter-square"></i> <span class="menu-item-parent">{{'Test' | i18n}}</span></a>
+      </li>-->
+<!--      <li routerLinkActive="active">
+        <a routerLink="/price" title="Price">
+          <i class="fa fa-lg fa-fw fa-money"></i> <span class="menu-item-parent">{{'Price' | i18n}}</span></a>
+      </li>-->
+    </ul>
+  </nav>
+
+  <sa-minify-menu></sa-minify-menu>
+
+</aside>

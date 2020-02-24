@@ -1,0 +1,112 @@
+<div id="content">
+    <div class="row">
+
+        <sa-big-breadcrumbs *ngIf="model.isNewbundle" [items]="['BundleOffering', 'New']" icon="table" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+
+        <sa-big-breadcrumbs *ngIf="!model.isNewbundle" [items]="['BundleOffering', 'Ed,t']" icon="table" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+
+    </div>
+
+    <div sa-widget [editbutton]="false" [deletebutton]="false">
+        <header>
+            <h2 *ngIf="model.name">{{model.name}}</h2>
+            <h2 *ngIf="!model.name">New Bundle Offering</h2>
+        </header>
+
+        <!-- widget div-->
+        <div>
+
+            <!-- widget content -->
+            <div class="widget-body fuelux">
+                <fuel-ux-wizard (complete)="onWizardComplete($event)" id="bundleOfferingWizard">
+                    <div class="wizard">
+                        <div class="steps-container">
+                            <ul class="steps">
+                                <li data-step="1" class="active">
+                                    <span class="badge badge-info">1</span>Basic Info
+                                    <span class="chevron"></span>
+
+                                </li>
+                                <li data-step="2">
+                                    <span class="badge">2</span>Offerings
+                                    <span class="chevron"></span>
+
+                                </li>
+                                <li data-step="3">
+                                    <span class="badge">3</span>Price
+                                    <span class="chevron"></span>
+
+                                </li>
+                                <li data-step="4">
+                                    <span class="badge">4</span>Detail
+                                    <span class="chevron"></span>
+                                </li>
+
+                                <li data-step="5">
+                                    <span class="badge">5</span>Save
+                                    <span class="chevron"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="actions">
+                            <button type="button" class="btn btn-sm btn-primary btn-prev">
+                                <i class="fa fa-arrow-left"></i>Prev
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success btn-next" data-last="Finish">
+                                Next
+                                <i class="fa fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        <form class="form-horizontal">
+
+                            <div class="step-pane active" data-step="1">
+
+                                <app-bundle-info [model]="model"></app-bundle-info>
+                            </div>
+
+                            <div class="step-pane" data-step="2">
+
+                                <app-bundle-offerings [model]="model"></app-bundle-offerings>
+                            </div>
+
+                            <div class="step-pane" data-step="3">
+                                <app-price></app-price>
+                            </div>
+
+                            <div class="step-pane" data-step="4">
+
+                                <app-bundle-detail [model]="model"></app-bundle-detail>
+                            </div>
+
+
+
+                            <div class="step-pane" data-step="5">
+                                
+                                <br>
+                                <br>
+
+                                <h1 class="text-center text-success">
+                                    <i class="fa fa-check"></i> Bundle is ready to be created!
+                                    <br>
+                                    <small>Please click finish to end wizard</small>
+                                </h1>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                            </div>
+
+                        </form>
+                    </div>
+                </fuel-ux-wizard>
+            </div>
+            <!-- end widget content -->
+
+        </div>
+        <!-- end widget div -->
+
+    </div>
+
+</div>

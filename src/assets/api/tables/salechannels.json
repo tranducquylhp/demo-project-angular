@@ -1,0 +1,19 @@
+{
+  "aaData": [
+    {
+      "id": "1",
+      "code": "CC",
+      "description": "Call Center"
+    },
+    {
+      "id": "2",
+      "code": "WEB",
+      "description": "Web"
+    },
+    {
+      "id": "3",
+      "code": "DEALER",
+      "description": "Dealer"
+    }
+  ]
+}

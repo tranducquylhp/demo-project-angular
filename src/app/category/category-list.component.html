@@ -1,0 +1,42 @@
+<div id="content">
+    <div class="row">
+        <sa-big-breadcrumbs [items]="['Categories', 'List']" icon="table" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+            <a routerLink="/category/new" >
+              <button type="button" class="btn btn-info btn-lg pull-right header-btn  ">
+                <span class="glyphicon glyphicon-plus"></span> New
+              </button>
+            </a>      
+          </div>      
+    </div>
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-sm-12">
+                <div sa-widget [editbutton]="false" [colorbutton]="true" [deletebutton]="false" color="vdf">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>Category List</h2>
+                    </header>
+                    <div>
+                        <div class="widget-body no-padding">
+                            <sa-datatable [options]="options" paginationLength="true" tableClass="table table-striped table-bordered table-hover" width="100%" *ngIf="!reRenderTable">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Parent</th>
+                                        <th>Code</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                            </sa-datatable>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </sa-widgets-grid>
+</div>

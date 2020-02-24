@@ -1,0 +1,16 @@
+@media only screen and (min-width : 480px){
+    .table-row-equal {
+        display: table;
+        height: 200px;
+        table-layout: fixed;
+        border-spacing: 30px 0px;
+        word-wrap: break-word;
+        border-spacing: 30px 0px;
+    }
+    .table-row-equal .thumbnail {
+        float: none;
+        display: table-cell;
+        vertical-align: top;
+        width: 1%;
+    }
+}
